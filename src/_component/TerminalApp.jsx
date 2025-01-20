@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Terminal } from "xterm";
+import "xterm/css/xterm.css";
 
 const TerminalApp = () => {
   const termRef = useRef(null);
@@ -24,9 +24,19 @@ const TerminalApp = () => {
       .catch((err) => {
         term.write(`Failed to fetch: ${err}`);
       });
+
+    return () => {
+      term.dispose();
+    };
   }, []);
 
-  return <div></div>;
+  return (
+    <div
+      className="w-full h-96 bg-gray-800 text-white p-4 rounded-lg shadow-lg"
+      ref={termRef}
+      style={{ height: "500px", width: "100%" }}
+    ></div>
+  );
 };
 
 export default TerminalApp;
