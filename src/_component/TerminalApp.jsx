@@ -15,6 +15,15 @@ const TerminalApp = () => {
       },
     });
     term.open(termRef.current);
+
+    fetch("http://localhost:5000/run-script")
+      .then((response) => response.text())
+      .then((data) => {
+        term.write(data);
+      })
+      .catch((err) => {
+        term.write(`Failed to fetch: ${err}`);
+      });
   }, []);
 
   return <div></div>;
